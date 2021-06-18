@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react"
 import io from "socket.io-client"
 import Peer from "simple-peer"
 import styled from "styled-components"
+import { Link} from "react-router-dom"
 
 const Container = styled.div`
     padding: 20px;
@@ -46,12 +47,16 @@ const Room = (props) => {
     const userVideo = useRef()
     const peersRef = useRef([])                    //array of objects which has the userID given by socket and the peers
     const roomID = props.match.params.roomID
+    const [stream, setStream] = useState()                      //using to toggle the audio video
+    const [audioMuted, setAudioMuted] = useState(false)         //toggles the audio
+    const [videoMuted, setVideoMuted] = useState(false)         //toggles the video
 
 
     //when connecting for the first time
     useEffect(() => {
         socketRef.current = io.connect("/")
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
+            setStream(stream);
             userVideo.current.srcObject = stream            //for own video
             socketRef.current.emit("join room", roomID)
             socketRef.current.on("all users", users => {
@@ -114,6 +119,43 @@ const Room = (props) => {
         return peer
     }
 
+    function toggleAudio(){
+        if(stream) {
+            setAudioMuted(!audioMuted)
+            stream.getAudioTracks()[0].enabled = audioMuted
+        }
+    }
+    
+    function toggleVideo(){
+        if(stream) {
+            setVideoMuted(!videoMuted)
+            stream.getVideoTracks()[0].enabled = videoMuted
+        }
+    }
+
+    let audioButton;
+    if(audioMuted){
+        audioButton=<Link onClick={toggleAudio} className="btn btn-primary w-100 mt-3">
+            mute/unmute audio
+      </Link>
+
+    } else {
+        audioButton=<Link onClick={toggleAudio} className="btn btn-primary w-100 mt-3">
+            mute/unmute audio
+      </Link>
+    }
+
+    let videoButton;
+    if(videoMuted){
+        videoButton=<Link onClick={toggleVideo} className="btn btn-primary w-100 mt-3">
+            mute/unmute video
+      </Link>
+    } else {
+        videoButton=<Link onClick={toggleVideo} className="btn btn-primary w-100 mt-3">
+            mute/unmute video
+      </Link>
+    }
+
     return (
         <Container>
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -122,6 +164,11 @@ const Room = (props) => {
                     <Video key={index} peer={peer} />
                 )
             })}
+            <div>
+                {audioButton}
+                {videoButton}   
+            </div>
+                    
         </Container>
     )
 }
