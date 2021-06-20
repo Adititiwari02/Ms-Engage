@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState} from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import db from '../firebase';
 
 export default function Signup() {
   const emailRef = useRef()
@@ -18,16 +19,24 @@ export default function Signup() {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")
     }
-
     try {
-      setError("")
-      setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
+      setError("");
+      setLoading(true);
+      // await signup(emailRef.current.value, passwordRef.current.value);
+      // history.push("/");
+
+      const auth = await signup(emailRef.current.value, passwordRef.current.value);
+      if (auth.user) {
+          db.collection('users').doc(auth.user.uid).set({
+              emailid: emailRef.current.value
+          })
+          .then((s) => {
+              history.push("/");
+          })
+      }
     } catch (err){
       setError("Failed to create an account")
     }
-
     setLoading(false)
   }
 
