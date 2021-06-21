@@ -3,11 +3,12 @@ import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
+
 export default function Dashboard() {
   const [error, setError] = useState("")
   const { currentUser, logout } = useAuth()
   const history = useHistory()
-
+  
   async function handleLogout() {
     setError("")
     try {
@@ -36,6 +37,9 @@ export default function Dashboard() {
         </Button>
         <Link to="/CreateRoom" className="btn btn-primary w-100 mt-3">
           Video Call
+        </Link>
+        <Link to="/users" className="btn btn-primary w-100 mt-3">
+          Users
         </Link>
       </div>
     </div>

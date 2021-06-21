@@ -11,6 +11,7 @@ import UpdateProfile from "./components/UpdateProfile"
 import Signup from "./components/Signup"
 import { AuthProvider } from "./contexts/AuthContext"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Users from './components/Users';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
+              <Route path="/users" component={Users} />
             </Switch>
           </AuthProvider>
         </BrowserRouter>
