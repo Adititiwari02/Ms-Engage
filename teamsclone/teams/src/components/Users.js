@@ -6,9 +6,9 @@ import { Button, Modal} from "react-bootstrap"
 function Users(){
     const [users, setUsers] = useState([]);
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [groupName, setGroupName] = useState("");
     useEffect(() => {
         db.collection("users").onSnapshot((snapshot) => 
           setUsers(snapshot.docs.map(doc => ({
@@ -16,27 +16,40 @@ function Users(){
               user: doc.data()
           })))
       )}, [])
+    
     return (
         <div>
             <Button variant="primary" onClick={handleShow}>
-                Create Group
+                Launch demo modal
             </Button>
+
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>Who would you like to add?</Modal.Title>
+                <Modal.Header>
+                <Modal.Title>Who would you like to add</Modal.Title>
                 </Modal.Header>
+                <label>
+                    Enter Group Name <br />
+                    <input 
+                        onChange={(e) => {
+                            setGroupName(e.target.value)
+                        }} 
+                        type="text" value={groupName} 
+                        placeholder="Group Name"/>
+                </label>
                 
-                    {users.map(({userId, user}) => (
-                        <Modal.Body>
-                        <Button>
+                {users.map(({ userId, user }) => (
+                    <Modal.Body>
+                        <Button className="w-100">
                             <User 
                             key = {userId}
-                            email= {user.emailid}
+                            id = {userId}
+                            email = {user.emailid}
+                            groupName = {groupName}
                             />
                         </Button>
-                        </Modal.Body>                        
-                    ))}
-                
+                    </Modal.Body>  
+                ))}
+                              
                 <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
@@ -51,3 +64,7 @@ function Users(){
 }
 
 export default Users
+
+
+
+
