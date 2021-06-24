@@ -20,7 +20,7 @@ function Users(){
     return (
         <div>
             <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
+                Create group!
             </Button>
 
             <Modal show={show} onHide={handleClose}>

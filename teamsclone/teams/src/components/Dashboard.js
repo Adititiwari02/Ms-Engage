@@ -38,6 +38,9 @@ export default function Dashboard() {
         <Link to="/CreateRoom" className="btn btn-primary w-100 mt-3">
           Video Call
         </Link>
+        <Link to="/Notes" className="btn btn-primary w-100 mt-3">
+          Notes
+        </Link>
         <Link to="/users" className="btn btn-primary w-100 mt-3">
           Users
         </Link>
