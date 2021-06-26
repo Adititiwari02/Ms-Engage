@@ -22,9 +22,7 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      // await signup(emailRef.current.value, passwordRef.current.value);
-      // history.push("/");
-
+      
       const auth = await signup(emailRef.current.value, passwordRef.current.value);
       if (auth.user) {
           db.collection('users').doc(auth.user.uid).set({

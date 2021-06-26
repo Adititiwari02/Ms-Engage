@@ -1,6 +1,5 @@
 // We use a fully connected mesh network to achieve the motive of group video call
 // Each user joined will have an array of all other users in that room
-
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
@@ -126,13 +125,15 @@ const Room = (props) => {
 
     function shareScreen(){
         navigator.mediaDevices.getDisplayMedia({cursor: true})
-        .then(screenStream => {                 //replace video with shared screen
-            peers.map(peer => {
+        .then(screenStream => { 
+            // eslint-disable-next-line                
+            peers.map(peer => {                                 //replace video with shared screen
                 myPeer.current = peer.peer;
                 myPeer.current.replaceTrack(stream.getVideoTracks()[0], screenStream.getVideoTracks()[0], stream);
                 userVideo.current.srcObject = screenStream;
             })  
             screenStream.getTracks()[0].onended = () => {
+                // eslint-disable-next-line
                 peers.map(peer => {             //replace shared screen with video
                     myPeer.current = peer.peer;
                     myPeer.current.replaceTrack(screenStream.getVideoTracks()[0], stream.getVideoTracks()[0], stream);

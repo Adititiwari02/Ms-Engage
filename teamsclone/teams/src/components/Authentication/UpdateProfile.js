@@ -73,11 +73,9 @@ export default function UpdateProfile() {
                 placeholder="Leave blank to keep the same"
               />
             </Form.Group>
-            <div className="w-100 text-center mt-2">
-                <Button disabled={loading} className="w-100" type="submit">
-                Update
-                </Button>
-            </div> 
+            <Button disabled={loading} className="w-100" type="submit">
+              Update
+            </Button>
           </Form>
         </Card.Body>
       </Card>

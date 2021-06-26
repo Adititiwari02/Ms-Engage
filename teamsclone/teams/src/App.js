@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import CreateRoom from './routes/CreateRoom';
 import Room from './routes/Room';
 import { Container } from "react-bootstrap"
-import Dashboard from "./components/Dashboard"
+import Dashboard from "./components/Connection/Dashboard"
 import Login from "./components/Authentication/Login"
 import PrivateRoute from "./components/Authentication/PrivateRoute"
 import ForgotPassword from "./components/Authentication/ForgotPassword"
@@ -12,14 +12,13 @@ import NoteCreateDelete from "./components/Notes/NoteCreateDelete"
 import Signup from "./components/Authentication/Signup"
 import { AuthProvider } from "./contexts/AuthContext"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Users from './components/Users';
+import Users from './components/Connection/Users';
 
 function App() {
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
+      style={{ minHeight: "100vh" }}>
       <div className="w-100" style={{ maxWidth: "400px" }}>
         <BrowserRouter>
           <AuthProvider>
