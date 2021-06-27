@@ -7,7 +7,7 @@ function User(props) {
     const {currentUser} = useAuth();
     const [ifConnection, setIfConnection] = useState(false);
     useEffect(() => {
-        db.collection('users').doc(currentUser.uid).collection("connection").doc(props.id).get().then((doc) => {
+        db.collection('users').doc(currentUser.uid).collection("connections").doc(props.id).get().then((doc) => {
             if (doc.exists) {
                 setIfConnection(true);
             }

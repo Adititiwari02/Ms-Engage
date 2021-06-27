@@ -33,7 +33,7 @@ export default function Dashboard() {
             <Button variant="link" onClick={handleLogout}>
               Log Out
             </Button>
-            <Link to="/CreateRoom" className="btn btn-primary w-100 mt-3">
+            <Link to="/call" className="btn btn-primary w-100 mt-3">
               Video Call
             </Link>
             <Link to="/Notes" className="btn btn-primary w-100 mt-3">

@@ -24,7 +24,7 @@ function App() {
         <BrowserRouter>
           <AuthProvider>
             <Switch>
-              <Route path="/CreateRoom" exact component={CreateRoom} />
+              <Route path="/call" exact component={CreateRoom} />
               <Route path="/Notes" exact component={NoteCreateDelete} />
               <Route path="/room/:roomID" component={Room} />
               <PrivateRoute exact path="/" component={Dashboard} />

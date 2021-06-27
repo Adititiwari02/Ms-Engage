@@ -22,7 +22,7 @@ function Requests() {
     return (
     <div>
         <h2 >Connection Requests</h2>
-        <div className="user__row">
+        <div>
             {connections.map(({ requestId, request }) => (
                 <Request 
                     key = {requestId}

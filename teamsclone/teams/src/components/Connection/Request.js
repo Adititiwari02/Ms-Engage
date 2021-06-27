@@ -13,14 +13,17 @@ function Request(props) {
         });
         db.collection("users").doc(currentUser.uid).collection("connections").doc(props.id).set({
             connnectionEmail: props.emailid,
-        }).then(() => {
-            db.collection("users").doc(currentUser.uid).collection("connnectionRequests").doc(props.id).delete();
+        });
+        db.collection("users").doc(currentUser.uid).collection("connectionRequests").doc(props.id).delete().then(() => {
+            console.log("Item successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing item: ", error);
         });
     }
 
     const declineRequest = (event) => {
         event.preventDefault();
-        db.collection("users").doc(currentUser.uid).collection("connnectionRequests").doc(currentUser.uid).delete().then(() => {
+        db.collection("users").doc(currentUser.uid).collection("connectionRequests").doc(props.id).delete().then(() => {
             console.log("Item successfully deleted!");
         }).catch((error) => {
             console.error("Error removing item: ", error);
