@@ -29,22 +29,23 @@ export default function Dashboard() {
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Update Profile
           </Link>
+          <div className="w-100 text-center mt-2">
+            <Button variant="link" onClick={handleLogout}>
+              Log Out
+            </Button>
+            <Link to="/CreateRoom" className="btn btn-primary w-100 mt-3">
+              Video Call
+            </Link>
+            <Link to="/Notes" className="btn btn-primary w-100 mt-3">
+              Notes
+            </Link>
+            <Link to="/users" className="btn btn-primary w-100 mt-3">
+              Users
+            </Link>
+          </div>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log Out
-        </Button>
-        <Link to="/CreateRoom" className="btn btn-primary w-100 mt-3">
-          Video Call
-        </Link>
-        <Link to="/Notes" className="btn btn-primary w-100 mt-3">
-          Notes
-        </Link>
-        <Link to="/users" className="btn btn-primary w-100 mt-3">
-          Users
-        </Link>
-      </div>
+      
     </div>
   )
 }

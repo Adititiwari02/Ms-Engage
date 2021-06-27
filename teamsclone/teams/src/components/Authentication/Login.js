@@ -46,7 +46,6 @@ export default function Login() {
                 Log In
                 </Button>
             </div> 
-            
           </Form>
           <div className="w-100 text-center mt-3">
             <Link to="/forgot-password">Forgot Password?</Link>

@@ -13,6 +13,7 @@ import Signup from "./components/Authentication/Signup"
 import { AuthProvider } from "./contexts/AuthContext"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Users from './components/Connection/Users';
+import Requests from './components/Connection/Requests';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path="/users" component={Users} />
+              <PrivateRoute path="/requests" component={Requests} />
             </Switch>
           </AuthProvider>
         </BrowserRouter>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import db from '../../firebase'
 import User from './User'
-import { Button} from "react-bootstrap"
 
 function Users(){
     const [users, setUsers] = useState([]);
@@ -16,13 +15,11 @@ function Users(){
     return (
         <div>            
             {users.map(({ userId, user }) => (
-                <Button className="w-100 mt-4 mt-4">
-                    <User 
+                <User 
                     key = {userId}
                     id = {userId}
                     email = {user.emailid}
-                    />
-                </Button> 
+                />
             ))}
         </div>
     )
