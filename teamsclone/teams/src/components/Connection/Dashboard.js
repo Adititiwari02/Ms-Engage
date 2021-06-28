@@ -26,10 +26,11 @@ export default function Dashboard() {
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email:</strong> {currentUser.email}
-          <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-            Update Profile
-          </Link>
-          <div className="w-100 text-center mt-2">
+          
+          <div className="text-center mt-2">
+            <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+              Update Profile
+            </Link>
             <Button variant="link" onClick={handleLogout}>
               Log Out
             </Button>
@@ -39,8 +40,14 @@ export default function Dashboard() {
             <Link to="/Notes" className="btn btn-primary w-100 mt-3">
               Notes
             </Link>
+            <Link to="/connections" className="btn btn-primary w-100 mt-3">
+              Connections
+            </Link>
             <Link to="/users" className="btn btn-primary w-100 mt-3">
               Users
+            </Link>
+            <Link to="/requests" className="btn btn-primary w-100 mt-3">
+              Requests
             </Link>
           </div>
         </Card.Body>

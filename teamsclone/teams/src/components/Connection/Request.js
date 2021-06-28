@@ -9,10 +9,10 @@ function Request(props) {
     const acceptRequest = (event) => {
         event.preventDefault();
         db.collection("users").doc(props.id).collection("connections").doc(currentUser.uid).set({
-            connnectionEmail: currentUser.email,
+            connectionEmail: currentUser.email,
         });
         db.collection("users").doc(currentUser.uid).collection("connections").doc(props.id).set({
-            connnectionEmail: props.emailid,
+            connectionEmail: props.emailid,
         });
         db.collection("users").doc(currentUser.uid).collection("connectionRequests").doc(props.id).delete().then(() => {
             console.log("Item successfully deleted!");
@@ -35,8 +35,8 @@ function Request(props) {
             <Card className="text-center">
                 <Card.Body>
                     <Card.Title>{props.emailid}</Card.Title>
-                    <Button variant="primary" onClick={acceptRequest}>Accept</Button>
-                    <Button variant="primary" onClick={declineRequest}>Decline</Button>
+                    <Button variant="primary" className="btn btn-primary w-100 mt-3" onClick={acceptRequest}>Accept</Button>
+                    <Button variant="primary" className="btn btn-primary w-100 mt-3" onClick={declineRequest}>Decline</Button>
                 </Card.Body>
             </Card>
         </div>

@@ -14,6 +14,7 @@ import { AuthProvider } from "./contexts/AuthContext"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Users from './components/Connection/Users';
 import Requests from './components/Connection/Requests';
+import Connections from './components/Connection/Connections';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path="/users" component={Users} />
               <PrivateRoute path="/requests" component={Requests} />
+              <PrivateRoute path="/connections" component={Connections} />
             </Switch>
           </AuthProvider>
         </BrowserRouter>

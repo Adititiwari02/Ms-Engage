@@ -11,7 +11,12 @@ export default function UpdateProfile() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-
+  const styleBtn = {
+    textAlign: "center",
+    position: "relative",
+    marginLeft: "19px", 
+    marginBottom: "20px"
+  }
   function handleSubmit(e) {
     e.preventDefault()
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -71,7 +76,7 @@ export default function UpdateProfile() {
             placeholder="Leave blank to keep the same"
           />
         </Form.Group>
-        <Button disabled={loading} className="w-100" type="submit">
+        <Button disabled={loading} style={styleBtn} className="w-100" type="submit">
           Update
         </Button>
       </Form>
