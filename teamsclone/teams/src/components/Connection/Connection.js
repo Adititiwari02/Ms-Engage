@@ -1,13 +1,42 @@
-import React from 'react'
-import {Card} from "react-bootstrap";
+import React, {useState} from 'react'
+import {Card, Button} from "react-bootstrap";
 
 function Connection(props) {
+    var idxOfUser = -1
+    const [addRemove, setAddRemove] = useState("Add");
+    function checkIfPresent() {        
+        for(let i = 0; i < props.userInGroup.length; i++) {
+            if(props.userInGroup[i].id === props.id) {
+                idxOfUser = i;
+                break;
+            }
+        }
+        return idxOfUser
+    }
+
+    function addRemoveUser() {
+        const idx = checkIfPresent()
+        const memberObj = {
+            id: props.id,
+            emailid: props.emailid
+        }
+        if(idx !== -1) {
+            const newUserInGroup = props.userInGroup;
+            newUserInGroup.splice(idx, 1);
+            props.setUserInGroup(newUserInGroup);
+            idxOfUser = -1
+            setAddRemove("Add")
+        } else {
+            props.setUserInGroup([...props.userInGroup, memberObj])
+            setAddRemove("Remove")
+        }
+    }
     return (
         <div>
-            <h2 className="text-center mb-4">Your Connections!</h2>
-            <Card className="text-center">
+            <Card className="text-center mt-2">
                 <Card.Body>
                     <Card.Title>{props.emailid}</Card.Title>
+                    {props.wantToFromGroup && <Button onClick={addRemoveUser}>{addRemove}</Button>}
                 </Card.Body>
             </Card>
         </div>
