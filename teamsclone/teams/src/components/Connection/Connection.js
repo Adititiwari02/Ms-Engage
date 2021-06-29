@@ -2,9 +2,9 @@ import React, {useState} from 'react'
 import {Card, Button} from "react-bootstrap";
 
 function Connection(props) {
-    var idxOfUser = -1
     const [addRemove, setAddRemove] = useState("Add");
-    function checkIfPresent() {        
+    function checkIfPresent() {   
+        var idxOfUser = -1     
         for(let i = 0; i < props.userInGroup.length; i++) {
             if(props.userInGroup[i].id === props.id) {
                 idxOfUser = i;
@@ -24,7 +24,6 @@ function Connection(props) {
             const newUserInGroup = props.userInGroup;
             newUserInGroup.splice(idx, 1);
             props.setUserInGroup(newUserInGroup);
-            idxOfUser = -1
             setAddRemove("Add")
         } else {
             props.setUserInGroup([...props.userInGroup, memberObj])

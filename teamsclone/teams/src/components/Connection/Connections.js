@@ -52,12 +52,14 @@ function Connections() {
         setUserInGroup(newArr);  
         setFormGroup(!formGroup);
         setGroupName("");
+        window.location.reload();
     }
     function cancelGroup() {
         const newArr = [];
         setUserInGroup(newArr);  
         setFormGroup(!formGroup);
         setGroupName("");
+        window.location.reload();
     }
 
     return (
