@@ -26,11 +26,7 @@ function Connections() {
     function ifformedGroup() {
         setFormGroup(!formGroup);
         if(!formGroup) {
-            const currUserObj = {
-                id: currentUser.uid,
-                emailid: currentUser.email
-            }
-            const groupUsers = [...userInGroup, currUserObj]
+            const groupUsers = [...userInGroup, currentUser.uid]
             setUserInGroup(groupUsers)  // adding own data in the group users
         } else {
             const newArr = [];
@@ -42,8 +38,8 @@ function Connections() {
     function saveGroup() {
         if(userInGroup.length > 1 && groupName !== "") {
             db.collection("groups").add({
-                groupName: {groupName},
-                groupMembers: {userInGroup}
+                groupName: groupName,
+                groupMembers: userInGroup
             })
         } else {
             alert("Less than two users or no group name please check");

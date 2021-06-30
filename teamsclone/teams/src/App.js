@@ -15,6 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Users from './components/Connection/Users';
 import Requests from './components/Connection/Requests';
 import Connections from './components/Connection/Connections';
+import ShowGroups from './components/Groups/ShowGroups';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="/users" component={Users} />
               <PrivateRoute path="/requests" component={Requests} />
               <PrivateRoute path="/connections" component={Connections} />
+              <PrivateRoute path="/groups" component={ShowGroups} />
             </Switch>
           </AuthProvider>
         </BrowserRouter>

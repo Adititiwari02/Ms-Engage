@@ -43,6 +43,9 @@ export default function Dashboard() {
             <Link to="/connections" className="btn btn-primary w-100 mt-3">
               Connections
             </Link>
+            <Link to="/groups" className="btn btn-primary w-100 mt-3">
+              Groups
+            </Link>
             <Link to="/users" className="btn btn-primary w-100 mt-3">
               Users
             </Link>
