@@ -24,8 +24,6 @@ function ShowGroups() {
     return (
         <div style={stylediv}>
             <h2 className="text-center mb-4">Your Groups!</h2>
-            {console.log("here")}
-            {console.log(groups)}
             {groups.map(({groupId, groupName}) => (
                 <ShowGroup 
                     key = {groupId}

@@ -5,10 +5,12 @@
   "license": "MIT",
   "proxy": "http://localhost:8000",
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "autoprefixer": "^7.1.6",
     "bootstrap": "^5.0.1",
     "firebase": "^8.6.7",
     "react": "^16.13.1",
@@ -16,7 +18,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-script-tag": "^1.1.2",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "^4.0.3",
     "simple-peer": "9.6.2",
     "socket.io-client": "^2.3.0",
     "styled-components": "^5.1.0",
@@ -26,21 +28,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
