@@ -16,6 +16,7 @@ import Users from './components/Connection/Users';
 import Requests from './components/Connection/Requests';
 import Connections from './components/Connection/Connections';
 import ShowGroups from './components/Groups/ShowGroups';
+import Chat from './components/Groups/Chat';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
               <PrivateRoute path="/requests" component={Requests} />
               <PrivateRoute path="/connections" component={Connections} />
               <PrivateRoute path="/groups" component={ShowGroups} />
+              <PrivateRoute path="/chat/groups/:groupId/" component={Chat} />
             </Switch>
           </AuthProvider>
         </BrowserRouter>

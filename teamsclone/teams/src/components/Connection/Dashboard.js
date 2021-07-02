@@ -37,9 +37,6 @@ export default function Dashboard() {
             <Link to="/call" className="btn btn-primary w-100 mt-3">
               Video Call
             </Link>
-            <Link to="/Notes" className="btn btn-primary w-100 mt-3">
-              Notes
-            </Link>
             <Link to="/connections" className="btn btn-primary w-100 mt-3">
               Connections
             </Link>
