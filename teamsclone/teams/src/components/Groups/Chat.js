@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import db from '../../firebase';
 import firebase from "firebase";
+import "../../css/groupChat.css"
 import {useAuth} from '../../contexts/AuthContext';
 import {Link} from "react-router-dom";
 import { v1 as uuid } from "uuid"
@@ -29,20 +30,6 @@ function Chat() {
         backgroundColor: "#B8DFD8",
         overflowX: "hidden",
         overflowY: "auto"
-    }
-    const ownMessage = {
-        height: "30px",
-        position: "relative",
-        left: "30%",
-        backgroundColor: "#133df5",
-        color: "white",
-    }
-    const othersMessage = {
-        height: "30px",
-        position: "relative",
-        right: "30%",
-        backgroundColor: "white",
-        color: "black",
     }
     useEffect(() => {
         var docRef = db.collection("groups").doc(groupId);
@@ -101,22 +88,14 @@ function Chat() {
                     Video Call
                 </Link>
             </div>
-            
             <div style={scrollDiv}>
                 {messages.map(messageInfo => (
-                    <div style={{marginTop: "3%"}}>
-                        {messageInfo.senderId === currentUser.uid?
-                            <span style={ownMessage}>{messageInfo.senderEmail}</span> :
-                            <span style={othersMessage}>{messageInfo.senderEmail}</span> 
-                        }
-                        <div>
-                        {messageInfo.senderId === currentUser.uid?
-                            <span style={ownMessage}>{messageInfo.message}</span> :
-                            <span style={othersMessage}>{messageInfo.message}</span> 
-                        }
+                    <p className={`chat__message ${messageInfo.senderId === currentUser.uid && "chat__receiver"}`}>
+                        <span className="chat__name">{messageInfo.senderEmail}</span>
+                        <div className="chat__boxmessage">
+                            <span>{messageInfo.message}</span>
                         </div>
-                        
-                    </div>                                        
+                    </p>                                    
                 ))}
             </div>
             <form style={{top: "2%"}}>
