@@ -16,10 +16,6 @@ function Connection(props) {
 
     function addRemoveUser() {
         const idx = checkIfPresent()
-        // const memberObj = {
-        //     id: props.id,
-        //     emailid: props.emailid
-        // }
         if(idx !== -1) {
             const newUserInGroup = props.userInGroup;
             newUserInGroup.splice(idx, 1);

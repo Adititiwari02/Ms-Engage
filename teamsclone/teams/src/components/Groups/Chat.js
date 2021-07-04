@@ -5,6 +5,9 @@ import "../../css/groupChat.css"
 import {useAuth} from '../../contexts/AuthContext';
 import {Link} from "react-router-dom";
 import { v1 as uuid } from "uuid"
+import Header from './../HeaderFooter/Header';
+import VideoCallIcon from '@material-ui/icons/VideoCall';
+import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
 
 function Chat() {
     const {currentUser} = useAuth();
@@ -14,22 +17,14 @@ function Chat() {
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
     const id = uuid();
-    const styleObj = {
-        position: "relative",
-        right: "40%",
-        height: "600px",
-        width: "700px",
-        backgroundColor: "#E8F6EF",
-        textAlign: "center",
-    }
     const scrollDiv = {
-        position: "relative", 
-        top:"5%", left:"5%", 
         height: "400px", 
-        width: "630px",
-        backgroundColor: "#B8DFD8",
+        width: "600px",
+        backgroundColor: "#d3f4f8",
         overflowX: "hidden",
-        overflowY: "auto"
+        overflowY: "auto",
+        position: "relative",
+        left: "25%"
     }
     useEffect(() => {
         var docRef = db.collection("groups").doc(groupId);
@@ -73,35 +68,33 @@ function Chat() {
         })
     }
     return (
-        <div style={styleObj}>
-            <h3>{groupName}</h3>
-            <div style={{display: 'inline-block'}}>
-                <Link to={`/groups`} 
-                className="btn btn-primary mt-3" style={{position: "absolute",right:"90%"}}>
-                    Back
-                </Link>
-                <Link to="/Notes" className="btn btn-primary mt-3">
-                    Notes
-                </Link>
-                <Link to={`/room/${id}`} onClick={createMsg}
-                className="btn btn-primary mt-3" style={{position: "absolute",left:"85%"}}>
-                    Video Call
-                </Link>
-            </div>
-            <div style={scrollDiv}>
-                {messages.map(messageInfo => (
-                    <p className={`chat__message ${messageInfo.senderId === currentUser.uid && "chat__receiver"}`}>
-                        <span className="chat__name">{messageInfo.senderEmail}</span>
-                        <div className="chat__boxmessage">
-                            <span>{messageInfo.message}</span>
-                        </div>
-                    </p>                                    
-                ))}
-            </div>
-            <form style={{top: "2%"}}>
-                <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Type a message"/>
-                <button type="submit" onClick={sendMessage}>Send</button>
-            </form>
+        <div>
+            <Header />
+            <div className="chat">
+                <div className="chat__header">
+                    <h3 className="mr-20">{groupName}</h3>
+                    <Link to="/Notes">
+                        <SpeakerNotesIcon fontSize="large"/>
+                    </Link>          
+                    <Link to={`/room/${id}`} onClick={createMsg}>
+                        <VideoCallIcon fontSize="large" />
+                    </Link>
+                </div>
+                <div style={scrollDiv}>
+                    {messages.map(messageInfo => (
+                        <p className={`chat__message ${messageInfo.senderId === currentUser.uid && "chat__receiver"}`}>
+                            <span className="chat__name">{messageInfo.senderEmail}</span>
+                            <div className="chat__boxmessage">
+                                <span>{messageInfo.message}</span>
+                            </div>
+                        </p>                                    
+                    ))}
+                </div>
+                <form style={{top: "2%"}}>
+                    <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Type a message"/>
+                    <button type="submit" onClick={sendMessage}>Send</button>
+                </form>
+            </div> 
         </div>
     )
 }

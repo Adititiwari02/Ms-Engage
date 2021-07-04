@@ -2,7 +2,6 @@ import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import CreateRoom from './routes/CreateRoom';
 import Room from './routes/Room';
-import { Container } from "react-bootstrap"
 import Dashboard from "./components/Connection/Dashboard"
 import Login from "./components/Authentication/Login"
 import PrivateRoute from "./components/Authentication/PrivateRoute"
@@ -17,13 +16,11 @@ import Requests from './components/Connection/Requests';
 import Connections from './components/Connection/Connections';
 import ShowGroups from './components/Groups/ShowGroups';
 import Chat from './components/Groups/Chat';
+import "./App.css"
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}>
-      <div className="w-100" style={{ maxWidth: "400px" }}>
+      <div>
         <BrowserRouter>
           <AuthProvider>
             <Switch>
@@ -43,8 +40,7 @@ function App() {
             </Switch>
           </AuthProvider>
         </BrowserRouter>
-      </div>
-    </Container>
+        </div>
   );
 }
 

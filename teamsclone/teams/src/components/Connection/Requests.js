@@ -1,8 +1,11 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React, { useEffect, useState } from "react";
 import Request from './Request';
 import db from '../../firebase';
 import {useAuth} from '../../contexts/AuthContext';
-
+import Header from './../HeaderFooter/Header';
+import { Container } from "react-bootstrap";
+import Footer from './../HeaderFooter/Footer';
 
 function Requests() {
     const {currentUser} = useAuth();
@@ -21,8 +24,12 @@ function Requests() {
 
     return (
     <div>
-        <h2 >Connection Requests</h2>
-        <div>
+        <Header/>
+        <Container
+        className="d-flex align-items-center justify-content-center"
+        style={{ minHeight: "100vh" }} style={{ maxWidth: "400px" }}>
+        <div className="w-100">
+            <h2>Connection Requests</h2>
             {connections.map(({ requestId, request }) => (
                 <Request 
                     key = {requestId}
@@ -31,6 +38,8 @@ function Requests() {
                 />
             ))}
         </div>
+        </Container>
+        <Footer />
     </div>
   );
 }

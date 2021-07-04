@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import Header from './../HeaderFooter/Header';
+import Footer from './../HeaderFooter/Footer';
 
 export default function UpdateProfile() {
   const emailRef = useRef()
@@ -48,6 +50,7 @@ export default function UpdateProfile() {
 
   return (
     <div>
+      <Header/> 
       <h2 className="text-center mb-4">Update Profile</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
@@ -83,6 +86,7 @@ export default function UpdateProfile() {
       <div className="w-100 text-center mt-2">
         <Link to="/">Cancel</Link>
       </div>
+      <Footer />
     </div>
   )
 }

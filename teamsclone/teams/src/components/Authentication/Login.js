@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import Header from './../HeaderFooter/Header';
+import Footer from './../HeaderFooter/Footer';
 
 export default function Login() {
   const emailRef = useRef()
@@ -33,6 +35,7 @@ export default function Login() {
 
   return (
     <div>
+      <Header />
       <h2 className="text-center mb-4">Log In</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
@@ -56,6 +59,7 @@ export default function Login() {
       <div className="w-100 text-center mt-2">
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
+      <Footer />
     </div>
   )
 }

@@ -31,7 +31,6 @@ function User(props) {
     }
     return (
         <div>
-            
             {props.email} 
             {ifConnection ? 
                 <p>Connected ✔ </p> :

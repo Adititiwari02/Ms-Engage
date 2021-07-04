@@ -5,6 +5,11 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import { Link} from "react-router-dom"
+import Header from './../components/HeaderFooter/Header';
+import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 
 const Video = (props) => {
     const ref = useRef();
@@ -162,29 +167,30 @@ const Room = (props) => {
     
     let audioButton;
     if(audioMuted){
-        audioButton=<Link onClick={toggleAudio} className="btn btn-primary w-100 mt-3">
-            mute/unmute audio
+        audioButton=<Link onClick={toggleAudio} className="mr-10">
+            <MicOffIcon />
         </Link>
 
     } else {
-        audioButton=<Link onClick={toggleAudio} className="btn btn-primary w-100 mt-3">
-            mute/unmute audio
+        audioButton= <Link onClick={toggleAudio} className="mr-10">
+            <MicIcon fontSize="large"/>
         </Link>
     }
 
     let videoButton;
     if(videoMuted){
-        videoButton=<Link onClick={toggleVideo} className="btn btn-primary w-100 mt-3">
-            mute/unmute video
+        videoButton=<Link onClick={toggleVideo} className="mr-10">
+            <VideocamOffIcon />
         </Link>
     } else {
-        videoButton=<Link onClick={toggleVideo} className="btn btn-primary w-100 mt-3">
-            mute/unmute video
+        videoButton=<Link onClick={toggleVideo} className="mr-10">
+            <VideocamIcon />
         </Link>
     }
 
     return (
         <div>
+            <Header />
             <div className="video__row">
                 <video muted ref={userVideo} autoPlay playsInline className="video__card"/>
                 {peers.map((peer) => {
@@ -196,10 +202,9 @@ const Room = (props) => {
             <div style={{display:"flex", justifyContent:"center", position: "sticky", bottom: "30px"}}>
                     {audioButton}
                     {videoButton}
-
-                    <div className="options-div">
-                        <ScreenShareIcon fontSize="large" className="video-options" onClick={shareScreen}></ScreenShareIcon>
-                    </div>
+                    <Link>
+                    <ScreenShareIcon fontSize="large" onClick={shareScreen} />
+                    </Link>
             </div>
         </div>
     );

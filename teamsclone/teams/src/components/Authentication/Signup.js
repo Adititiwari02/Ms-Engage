@@ -3,6 +3,8 @@ import { Form, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import db from '../../firebase';
+import Header from './../HeaderFooter/Header';
+import Footer from './../HeaderFooter/Footer';
 
 export default function Signup() {
   const emailRef = useRef()
@@ -45,6 +47,7 @@ export default function Signup() {
 
   return (
     <div>
+      <Header />
       <h2 className="text-center mb-4">Sign Up</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
@@ -68,6 +71,7 @@ export default function Signup() {
       <div className="w-100 text-center mt-2">
         Already have an account? <Link to="/login">Log In</Link>
       </div>
+      <Footer />
     </div>
   )
 }
