@@ -6,6 +6,20 @@ import { Button} from "react-bootstrap"
 function User(props) {
     const {currentUser} = useAuth();
     const [ifConnection, setIfConnection] = useState(false);
+    const [themeName, setThemeName] = useState("");
+    useEffect(() => {
+        var docRef= db.collection("users").doc(currentUser.uid)
+        docRef.get().then((doc) => {
+            if(doc.exists) {
+                setThemeName(doc.data().themeChoice)
+            } else {
+                console.log("NOT FOUND ERROR!!")
+            }
+        }).catch((error) =>{
+            console.log("Error Fetching Document!")
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     useEffect(() => {
         db.collection('users').doc(currentUser.uid).collection("connections").doc(props.id).get().then((doc) => {
             if (doc.exists) {
@@ -35,7 +49,7 @@ function User(props) {
             {ifConnection ? 
                 <p>Connected ✔ </p> :
                 // eslint-disable-next-line jsx-a11y/accessible-emoji
-                <Button className="w-100 mb-4" onClick={sendRequest}>Connect ➕</Button>}
+                <Button variant={themeName} className="w-100 mb-4" onClick={sendRequest}>Connect ➕</Button>}
         </div> 
     )
 }

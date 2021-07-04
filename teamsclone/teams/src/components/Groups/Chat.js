@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React, {useState, useEffect} from 'react'
 import db from '../../firebase';
 import firebase from "firebase";
@@ -8,6 +9,7 @@ import { v1 as uuid } from "uuid"
 import Header from './../HeaderFooter/Header';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
+import { Container } from "react-bootstrap";
 
 function Chat() {
     const {currentUser} = useAuth();
@@ -19,12 +21,10 @@ function Chat() {
     const id = uuid();
     const scrollDiv = {
         height: "400px", 
-        width: "600px",
-        backgroundColor: "#d3f4f8",
+        width: "400px",
+        backgroundColor: "#C0FEFC",
         overflowX: "hidden",
-        overflowY: "auto",
-        position: "relative",
-        left: "25%"
+        overflowY: "auto"
     }
     useEffect(() => {
         var docRef = db.collection("groups").doc(groupId);
@@ -70,12 +70,15 @@ function Chat() {
     return (
         <div>
             <Header />
-            <div className="chat">
+            <Container
+            className="d-flex align-items-center justify-content-center"
+            style={{ minHeight: "100vh" }} style={{ maxWidth: "400px" }}>
+            <div className="w-100">
                 <div className="chat__header">
-                    <h3 className="mr-20">{groupName}</h3>
                     <Link to="/Notes">
                         <SpeakerNotesIcon fontSize="large"/>
-                    </Link>          
+                    </Link>         
+                    <h3 className="mr-20">{groupName}</h3> 
                     <Link to={`/room/${id}`} onClick={createMsg}>
                         <VideoCallIcon fontSize="large" />
                     </Link>
@@ -91,10 +94,11 @@ function Chat() {
                     ))}
                 </div>
                 <form style={{top: "2%"}}>
-                    <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Type a message"/>
+                    <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Type a msg (refresh if changes not visible)"/>
                     <button type="submit" onClick={sendMessage}>Send</button>
                 </form>
-            </div> 
+            </div>
+            </Container>
         </div>
     )
 }

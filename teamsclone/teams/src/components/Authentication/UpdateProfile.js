@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import Header from './../HeaderFooter/Header';
 import Footer from './../HeaderFooter/Footer';
+import db from '../../firebase';
 
 export default function UpdateProfile() {
   const emailRef = useRef()
@@ -13,6 +14,20 @@ export default function UpdateProfile() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const [themeName, setThemeName] = useState("");
+  useEffect(() => {
+      var docRef= db.collection("users").doc(currentUser.uid)
+      docRef.get().then((doc) => {
+          if(doc.exists) {
+              setThemeName(doc.data().themeChoice)
+          } else {
+              console.log("NOT FOUND ERROR!!")
+          }
+      }).catch((error) =>{
+          console.log("Error Fetching Document!")
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const styleBtn = {
     textAlign: "center",
     position: "relative",
@@ -79,7 +94,7 @@ export default function UpdateProfile() {
             placeholder="Leave blank to keep the same"
           />
         </Form.Group>
-        <Button disabled={loading} style={styleBtn} className="w-100" type="submit">
+        <Button disabled={loading} style={styleBtn} variant={themeName} className="w-100" type="submit">
           Update
         </Button>
       </Form>

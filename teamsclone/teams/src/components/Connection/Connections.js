@@ -13,6 +13,20 @@ function Connections() {
     const [formGroup, setFormGroup] = useState(false);
     const [groupName, setGroupName] = useState("");
     const [userInGroup, setUserInGroup] = useState([]);
+    const [themeName, setThemeName] = useState("");
+    useEffect(() => {
+        var docRef= db.collection("users").doc(currentUser.uid)
+        docRef.get().then((doc) => {
+            if(doc.exists) {
+                setThemeName(doc.data().themeChoice)
+            } else {
+                console.log("NOT FOUND ERROR!!")
+            }
+        }).catch((error) =>{
+            console.log("Error Fetching Document!")
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         db.collection("users").doc(currentUser.uid).collection("connections")
@@ -68,7 +82,7 @@ function Connections() {
             style={{ minHeight: "100vh" }} style={{ maxWidth: "400px" }}>
             <div className="w-100">
             <h2 className="text-center mb-4">Your Connections!</h2>
-            <Button variant="primary" className="btn btn-primary w-100 mb-3" onClick={ifformedGroup}>Create Group</Button>
+            <Button variant={themeName} className="btn w-100 mb-3" onClick={ifformedGroup}>Create Group</Button>
             {formGroup && 
             <label>
                 Enter Group Name <br />
@@ -94,10 +108,10 @@ function Connections() {
             {formGroup && 
                 <div>
                     <div>
-                        <Button variant="primary" className="btn btn-primary w-100 mt-3" onClick={saveGroup}>Save Changes</Button>
+                        <Button variant={themeName} className="btn w-100 mt-3" onClick={saveGroup}>Save Changes</Button>
                     </div>
                     <div>
-                        <Button className="btn btn-primary w-100 mt-3" onClick={cancelGroup}>Cancel</Button>
+                        <Button variant={themeName} className="btn w-100 mt-3" onClick={cancelGroup}>Cancel</Button>
                     </div>
                 </div>
             }

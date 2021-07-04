@@ -5,7 +5,6 @@ import db from '../../firebase';
 import {useAuth} from '../../contexts/AuthContext';
 import Header from './../HeaderFooter/Header';
 import { Container } from "react-bootstrap";
-import Footer from './../HeaderFooter/Footer';
 
 function Requests() {
     const {currentUser} = useAuth();
@@ -39,7 +38,6 @@ function Requests() {
             ))}
         </div>
         </Container>
-        <Footer />
     </div>
   );
 }

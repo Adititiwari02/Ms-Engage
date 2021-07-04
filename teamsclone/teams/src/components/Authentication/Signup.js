@@ -3,7 +3,6 @@ import { Form, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import db from '../../firebase';
-import Header from './../HeaderFooter/Header';
 import Footer from './../HeaderFooter/Footer';
 
 export default function Signup() {
@@ -33,7 +32,8 @@ export default function Signup() {
       const auth = await signup(emailRef.current.value, passwordRef.current.value);
       if (auth.user) {
           db.collection('users').doc(auth.user.uid).set({
-              emailid: emailRef.current.value
+              emailid: emailRef.current.value,
+              themeChoice: "primary"
           })
           .then((s) => {
               history.push("/");
@@ -47,7 +47,6 @@ export default function Signup() {
 
   return (
     <div>
-      <Header />
       <h2 className="text-center mb-4">Sign Up</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>

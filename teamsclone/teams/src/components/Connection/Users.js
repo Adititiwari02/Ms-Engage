@@ -7,7 +7,6 @@ import { Container } from "react-bootstrap";
 
 function Users(){
     const [users, setUsers] = useState([]);
-
     useEffect(() => {
         db.collection("users").onSnapshot((snapshot) => 
           setUsers(snapshot.docs.map(doc => ({

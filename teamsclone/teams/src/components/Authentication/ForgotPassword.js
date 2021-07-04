@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link } from "react-router-dom"
-import Header from './../HeaderFooter/Header';
 import Footer from './../HeaderFooter/Footer';
 
 export default function ForgotPassword() {
@@ -11,10 +10,9 @@ export default function ForgotPassword() {
   const [error, setError] = useState("")
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
-
+  
   async function handleSubmit(e) {
     e.preventDefault()
-
     try {
       setMessage("")
       setError("")
@@ -24,13 +22,11 @@ export default function ForgotPassword() {
     } catch (err) {
       setError("Failed to reset password")
     }
-
     setLoading(false)
   }
 
   return (
     <div>
-      <Header />
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Password Reset</h2>
@@ -41,7 +37,7 @@ export default function ForgotPassword() {
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} variant="primary" className="w-100" type="submit">
               Reset Password
             </Button>
           </Form>

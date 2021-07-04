@@ -1,5 +1,6 @@
 body {
     margin: 0px;
+    padding: 0px;
 }
 
 .chat {
@@ -20,7 +21,7 @@ body {
     padding: 10px;
     width: fit-content;
     border-radius: 10px;
-    background-color: #7ed6e2;
+    background-color: #3edbf0;
     margin-top: 20px;
 }
 
@@ -30,7 +31,7 @@ body {
 
 .chat__receiver {
     margin-left: auto;
-    background-color: #091457;
+    background-color: #04009a;
     color: white;
 }
 .chat__boxmessage {
