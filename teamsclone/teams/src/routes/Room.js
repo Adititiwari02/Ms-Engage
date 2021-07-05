@@ -1,7 +1,9 @@
 // We use a fully connected mesh network to achieve the motive of group video call
 // Each user joined will have an array of all other users in that room
 import React, { useEffect, useRef, useState } from "react";
+import db from '../firebase';
 import io from "socket.io-client";
+import {useAuth} from '../contexts/AuthContext';
 import Peer from "simple-peer";
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import { Link} from "react-router-dom"
@@ -33,6 +35,7 @@ const videoConstraints = {
 };
 
 const Room = (props) => {
+    const {currentUser} = useAuth();
     const [peers, setPeers] = useState([]);                 //for actually rendering i.e the no of people joined
     const socketRef = useRef();
     const userVideo = useRef();
@@ -42,7 +45,20 @@ const Room = (props) => {
     const [stream, setStream] = useState()                      //using to toggle the audio video
     const [audioMuted, setAudioMuted] = useState(false)         //toggles the audio
     const [videoMuted, setVideoMuted] = useState(false)         //toggles the video
-
+    const [themeName, setThemeName] = useState("");
+    useEffect(() => {
+        var docRef= db.collection("users").doc(currentUser.uid)
+        docRef.get().then((doc) => {
+            if(doc.exists) {
+                setThemeName(doc.data().themeChoice)
+            } else {
+                console.log("NOT FOUND ERROR!!")
+            }
+        }).catch((error) =>{
+            console.log("Error Fetching Document!")
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     //when connecting for the first time
     useEffect(() => {
         socketRef.current = io.connect("/");
@@ -167,23 +183,23 @@ const Room = (props) => {
     
     let audioButton;
     if(audioMuted){
-        audioButton=<Link onClick={toggleAudio} className="mr-10">
+        audioButton=<Link onClick={toggleAudio} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
             <MicOffIcon />
         </Link>
 
     } else {
-        audioButton= <Link onClick={toggleAudio} className="mr-10">
+        audioButton= <Link onClick={toggleAudio} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
             <MicIcon fontSize="large"/>
         </Link>
     }
 
     let videoButton;
     if(videoMuted){
-        videoButton=<Link onClick={toggleVideo} className="mr-10">
+        videoButton=<Link onClick={toggleVideo} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
             <VideocamOffIcon />
         </Link>
     } else {
-        videoButton=<Link onClick={toggleVideo} className="mr-10">
+        videoButton=<Link onClick={toggleVideo} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
             <VideocamIcon />
         </Link>
     }
@@ -202,7 +218,7 @@ const Room = (props) => {
             <div style={{display:"flex", justifyContent:"center", position: "sticky", bottom: "30px"}}>
                     {audioButton}
                     {videoButton}
-                    <Link>
+                    <Link style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
                     <ScreenShareIcon fontSize="large" onClick={shareScreen} />
                     </Link>
             </div>

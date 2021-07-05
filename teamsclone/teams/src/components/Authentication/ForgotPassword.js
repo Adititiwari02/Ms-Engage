@@ -10,7 +10,12 @@ export default function ForgotPassword() {
   const [error, setError] = useState("")
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
-  
+  const styleBtn = {
+    textAlign: "center",
+    position: "relative",
+    marginLeft: "19px", 
+    marginBottom: "20px"
+  }
   async function handleSubmit(e) {
     e.preventDefault()
     try {
@@ -37,18 +42,18 @@ export default function ForgotPassword() {
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
-            <Button disabled={loading} variant="primary" className="w-100" type="submit">
+            <Button disabled={loading} style={styleBtn} variant="primary" className="w-100" type="submit">
               Reset Password
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
             <Link to="/login">Login</Link>
           </div>
+          <div className="w-100 text-center mt-2">
+            Need an account? <Link to="/signup">Sign Up</Link>
+          </div>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
       <Footer />
     </div>
   )
