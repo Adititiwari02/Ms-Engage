@@ -12,17 +12,17 @@ import MicIcon from '@material-ui/icons/Mic';
 import MicOffIcon from '@material-ui/icons/MicOff';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
+import CallEndIcon from '@material-ui/icons/CallEnd';
+
 
 const Video = (props) => {
     const ref = useRef();
-
     useEffect(() => {
         props.peer.on("stream", stream => {
             ref.current.srcObject = stream;
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
     return (
         <video playsInline autoPlay ref={ref} className="video__card"/>
     );
@@ -30,8 +30,8 @@ const Video = (props) => {
 
 
 const videoConstraints = {
-    height: window.innerHeight / 2,
-    width: window.innerWidth / 2
+    height: (4* window.innerHeight) / 12,
+    width: (4*window.innerWidth) / 12
 };
 
 const Room = (props) => {
@@ -180,35 +180,40 @@ const Room = (props) => {
         }
     }
 
-    
+    function hangUp() {
+        window.close()
+    }
+
     let audioButton;
     if(audioMuted){
         audioButton=<Link onClick={toggleAudio} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
-            <MicOffIcon />
-        </Link>
+                        <MicOffIcon />
+                    </Link>
 
     } else {
         audioButton= <Link onClick={toggleAudio} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
-            <MicIcon fontSize="large"/>
-        </Link>
+                        <MicIcon fontSize="large"/>
+                    </Link>
     }
 
     let videoButton;
     if(videoMuted){
         videoButton=<Link onClick={toggleVideo} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
-            <VideocamOffIcon />
-        </Link>
+                        <VideocamOffIcon />
+                    </Link>
     } else {
         videoButton=<Link onClick={toggleVideo} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
-            <VideocamIcon />
-        </Link>
+                        <VideocamIcon />
+                    </Link>
     }
-
+    let endCall=<Link onClick={hangUp} style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
+                    <CallEndIcon />
+                </Link>
     return (
         <div>
             <Header />
-            <div className="video__row">
-                <video muted ref={userVideo} autoPlay playsInline className="video__card"/>
+            <div>
+                <video style={{marginLeft: "15px", marginRight: "15px"}} muted ref={userVideo} autoPlay playsInline className="video__card"/>
                 {peers.map((peer) => {
                     return (
                         <Video key={peer.peerID} peer={peer.peer} />
@@ -221,6 +226,8 @@ const Room = (props) => {
                     <Link style={{marginRight: "15px" }} className={`btn btn-${themeName}`}>
                     <ScreenShareIcon fontSize="large" onClick={shareScreen} />
                     </Link>
+                    {endCall}
+                    
             </div>
         </div>
     );

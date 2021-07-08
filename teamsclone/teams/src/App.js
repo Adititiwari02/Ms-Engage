@@ -17,17 +17,22 @@ import Connections from './components/Connection/Connections';
 import ShowGroups from './components/Groups/ShowGroups';
 import Chat from './components/Groups/Chat';
 import "./App.css"
+import Information from './components/AppInfo/Information';
+import FeedbackForms from './components/Groups/FeedbackForms';
+import FillForm from './components/Groups/FillForm';
+import FeedbackResults from './components/Groups/FeedbackResults';
+import FeedbackResponses from './components/Groups/FeedbackResponses';
 
 function App() {
   return (
       <div>
         <BrowserRouter>
-          <AuthProvider>
+          <AuthProvider>  
             <Switch>
               <Route path="/call" exact component={CreateRoom} />
               <Route path="/Notes" exact component={NoteCreateDelete} />
               <Route path="/room/:roomID" component={Room} />
-              <PrivateRoute exact path="/" component={Dashboard} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
@@ -37,6 +42,11 @@ function App() {
               <PrivateRoute path="/connections" component={Connections} />
               <PrivateRoute path="/groups" component={ShowGroups} />
               <PrivateRoute path="/chat/groups/:groupId/" component={Chat} />
+              <PrivateRoute path="/chat/feedback/:groupId/" component={FeedbackForms} />
+              <PrivateRoute path="/chat/feedbackResults/:groupId/:formId" component={FeedbackResponses} />
+              <PrivateRoute path="/chat/feedbackResults/:groupId/" component={FeedbackResults} />
+              <PrivateRoute path="/chat/:groupId/:formId/" component={FillForm} />
+              <PrivateRoute path="/" component={Information} />
             </Switch>
           </AuthProvider>
         </BrowserRouter>

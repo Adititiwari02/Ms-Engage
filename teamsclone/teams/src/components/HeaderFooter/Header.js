@@ -4,9 +4,11 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import {useAuth} from '../../contexts/AuthContext'
+import { v1 as uuid } from "uuid"
 
 function Header() {
     const {currentUser} = useAuth();
+    const id = uuid();
     const [themeName, setThemeName] = useState("");
     useEffect(() => {
         var docRef= db.collection("users").doc(currentUser.uid)
@@ -23,45 +25,55 @@ function Header() {
     }, [])
     function changeTheme0() {
         db.collection("users").doc(currentUser.uid).update({
-            themeChoice: "primary"
+            themeChoice: "primary",
+            themeNo: 0
         })
         setThemeName("primary")
         alert("kindly refresh browser to see changes")
     }
     function changeTheme1() {
         db.collection("users").doc(currentUser.uid).update({
-            themeChoice: "success"
+            themeChoice: "success",
+            themeNo: 1
         })
         setThemeName("success")
         alert("kindly refresh browser to see changes")
     }
     function changeTheme2() {
         db.collection("users").doc(currentUser.uid).update({
-            themeChoice: "dark"
+            themeChoice: "dark",
+            themeNo: 2
         })
         setThemeName("dark")
         alert("kindly refresh browser to see changes")
     }
     function changeTheme3() {
         db.collection("users").doc(currentUser.uid).update({
-            themeChoice: "danger"
+            themeChoice: "danger",
+            themeNo: 3
         })
         setThemeName("danger")
         alert("kindly refresh browser to see changes")
     }
     function changeTheme4() {
         db.collection("users").doc(currentUser.uid).update({
-            themeChoice: "warning"
+            themeChoice: "warning",
+            themeNo: 4
         })
         setThemeName("warning")
         alert("kindly refresh browser to see changes")
     }
     function changeTheme5() {
         db.collection("users").doc(currentUser.uid).update({
-            themeChoice: "secondary"
+            themeChoice: "secondary",
+            themeNo: 5
         })
         setThemeName("secondary")
         alert("kindly refresh browser to see changes")
+    }
+    function instantMeet() {
+        // eslint-disable-next-line no-useless-concat
+        alert("Copy the following link and share to invite users to your meeting:  " + `/room/${id}`)
     }
     return (
         <div>
@@ -70,7 +82,8 @@ function Header() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/update-profile">Profile</Nav.Link>
+                    <Nav.Link href="/dashboard">Profile</Nav.Link>
+                    <Nav.Link href={`/room/${id}`} onClick={instantMeet} target="_blank">Instant Meeting</Nav.Link>
                     <Nav.Link href="/users">Users</Nav.Link>
                     <Nav.Link href="/requests">Requests</Nav.Link>
                     <Nav.Link href="/connections">Connections</Nav.Link>

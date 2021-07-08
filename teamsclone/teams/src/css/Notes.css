@@ -27,12 +27,12 @@ footer p {
     border-radius: 7px;
     box-shadow: 0 2px 5px #ccc;
     padding: 10px;
-    width: 240px;
+    width: "100%";
     margin: 16px;
     float: left;
 }
 .note h1 {
-    font-size: 1.1em;
+    font-size: 1em;
     margin-bottom: 6px;
 }
 .note p {
@@ -54,7 +54,7 @@ footer p {
 
 form {
     position: relative;
-    width: 400px;
+    width: 90%;
     margin: 30px auto 20px auto;
     background: #fff;
     padding: 15px;

@@ -10,21 +10,29 @@ import Header from './../HeaderFooter/Header';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
 import { Container, Button} from "react-bootstrap";
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import CreateIcon from '@material-ui/icons/Create';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Modal from 'react-bootstrap/Modal';
 
 function Chat() {
     const {currentUser} = useAuth();
+    const id = uuid();
     const pathname = window.location.pathname;
     const groupId = pathname.split(':')[1];
     const [groupName, setGroupName] = useState("");
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
-    const id = uuid();
     const [themeName, setThemeName] = useState("");
+    const [themeNum, setThemeNum] = useState(-1);
+    const [show, setShow] = useState(false);
+    const [feedbackName, setFeedbackName] = useState("")
     useEffect(() => {
         var docRef= db.collection("users").doc(currentUser.uid)
         docRef.get().then((doc) => {
             if(doc.exists) {
                 setThemeName(doc.data().themeChoice)
+                setThemeNum(doc.data().themeNo)
             } else {
                 console.log("NOT FOUND ERROR!!")
             }
@@ -53,144 +61,32 @@ function Chat() {
             setMessages(snapshot.docs.map(doc =>doc.data()))
         ))
     })
-    let scrollDiv = {}
-    let chatReciever = {}
-    let chatMsg = {}
-    if(themeName === "primary") {
-        scrollDiv = {
-            height: "400px", 
-            width: "400px",
-            backgroundColor: "#ccccff",
-            overflowX: "hidden",
-            overflowY: "auto"
-        }
-        chatReciever = {
-            marginLeft: "auto",
-            backgroundColor: "#0D6EFD",
-            color: "white",
-        }
-        chatMsg = {
-            position: "relative",
-            fontSize: "16px",
-            padding: "10px",
-            width: "fit-content",
-            borderRadius: "10px",
-            backgroundColor: "#80b3ff",
-            marginTop: "20px",
-        }
-    } else if(themeName === "success") {
-        scrollDiv = {
-            height: "400px", 
-            width: "400px",
-            backgroundColor: "#ccffcc",
-            overflowX: "hidden",
-            overflowY: "auto"
-        }
-        chatReciever = {
-            marginLeft: "auto",
-            backgroundColor: "#198754",
-            color: "white",
-        }
-        chatMsg = {
-            position: "relative",
-            fontSize: "16px",
-            padding: "10px",
-            width: "fit-content",
-            borderRadius: "10px",
-            backgroundColor: "#53c68c",
-            marginTop: "20px",
-        }
-    } else if(themeName === "dark") {
-        scrollDiv = {
-            height: "400px", 
-            width: "400px",
-            backgroundColor: "#8c8c8c",
-            overflowX: "hidden",
-            overflowY: "auto"
-        }
-        chatReciever = {
-            marginLeft: "auto",
-            backgroundColor: "#212529",
-            color: "white",
-        }
-        chatMsg = {
-            position: "relative",
-            fontSize: "16px",
-            padding: "10px",
-            width: "fit-content",
-            borderRadius: "10px",
-            backgroundColor: "#404040",
-            marginTop: "20px",
-        }
-    } else if(themeName === "danger") {
-        scrollDiv = {
-            height: "400px", 
-            width: "400px",
-            backgroundColor: "#ffb3b3",
-            overflowX: "hidden",
-            overflowY: "auto"
-        }
-        chatReciever = {
-            marginLeft: "auto",
-            backgroundColor: "#DC3545",
-            color: "white",
-        }
-        chatMsg = {
-            position: "relative",
-            fontSize: "16px",
-            padding: "10px",
-            width: "fit-content",
-            borderRadius: "10px",
-            backgroundColor: "#ff4d4d",
-            marginTop: "20px",
-        }
-    } else if(themeName === "warning") {
-        scrollDiv = {
-            height: "400px", 
-            width: "400px",
-            backgroundColor: "#ffffb3",
-            overflowX: "hidden",
-            overflowY: "auto"
-        }
-        chatReciever = {
-            marginLeft: "auto",
-            backgroundColor: "#FFC107",
-            color: "black",
-        }
-        chatMsg = {
-            position: "relative",
-            fontSize: "16px",
-            padding: "10px",
-            width: "fit-content",
-            borderRadius: "10px",
-            backgroundColor: "#ffe066",
-            marginTop: "20px",
-            color: "black"
-        }
+    const chatBackground = ["#ccccff", "#ccffcc", "#8c8c8c", "#ffb3b3", "#ffffb3", "#e6e6e6"]
 
-    } else if(themeName === "secondary") {
-        scrollDiv = {
-            height: "400px", 
-            width: "400px",
-            backgroundColor: "#e6e6e6",
-            overflowX: "hidden",
-            overflowY: "auto",
-            color: "black"
-        }
-        chatReciever = {
-            marginLeft: "auto",
-            backgroundColor: "#6C757D",
-            color: "white",
-        }
-        chatMsg = {
-            position: "relative",
-            fontSize: "16px",
-            padding: "10px",
-            width: "fit-content",
-            borderRadius: "10px",
-            backgroundColor: "#c2bcbc",
-            marginTop: "20px",
-        }
+    const senderMsg = ["#80b3ff", "#53c68c", "#404040", "#ff4d4d", "#ffe066", "#c2bcbc"]
+
+    const recieverMsg = ["#0D6EFD", "#198754", "#212529", "#DC3545", "#FFC107", "#6C757D"]
+    let scrollDiv = {
+        height: "400px", 
+        width: "100%",
+        backgroundColor: chatBackground[themeNum],
+        overflowX: "hidden",
+        overflowY: "auto",
+        color: "black"
+    }
+    let chatReciever = {
+        marginLeft: "auto",
+        backgroundColor: recieverMsg[themeNum],
+        color: "white",
+    }
+    let chatMsg = {
+        position: "relative",
+        fontSize: "16px",
+        padding: "10px",
+        width: "fit-content",
+        borderRadius: "10px",
+        backgroundColor: senderMsg[themeNum],
+        marginTop: "20px",
     }
     function sendMessage(e) {
         e.preventDefault()
@@ -198,49 +94,126 @@ function Chat() {
             senderId: currentUser.uid,
             senderEmail: currentUser.email,
             message: input,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            isVideoCallLink: ""
         })
         setInput("")
     }
     function createMsg() {
         const meetingLink = `/room/${id}`
-        const msg = currentUser.email + " is inviting you to the meet: " + meetingLink
+        const msg = currentUser.email + " is inviting you to a meet! Click this msg to join! "
         //e.preventDefault()
         db.collection("groups").doc(groupId).collection("messages").add({
             senderId: currentUser.uid,
             senderEmail: currentUser.email,
             message: msg,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            isVideoCallLink: meetingLink
         })
+    }
+    const handleShow = () => setShow(true);
+    function handleClose () {
+        setShow(false);
+        setFeedbackName("");
+    }
+    function handleSaveClose() {
+        if(feedbackName !== "") {
+            let groupDoc = db.collection("groups").doc(groupId)
+            groupDoc.get().then((doc) => {
+                let eligibleGroupMembers = doc.data().groupMembers;
+                for( let i = 0; i < eligibleGroupMembers.length; i++){ 
+                    if (eligibleGroupMembers[i] === currentUser.uid) { 
+                        eligibleGroupMembers.splice(i, 1); 
+                    }
+                }
+                db.collection("groups").doc(groupId).collection("feedbackForms").add({
+                    nameOfFeedback: feedbackName,
+                    creator: currentUser.uid,
+                    eligiblePeople: eligibleGroupMembers
+                })
+                
+            }).catch((error) => {
+                console.log("Error getting cached document:", error);
+            });
+            
+        } else {
+            alert("Please provide a name of the meeting for which feedback is required!")
+        }
+        setFeedbackName("");
+        setShow(false)
     }
     return (
         <div>
             <Header />
             <Container
             className="d-flex align-items-center justify-content-center"
-            style={{ minHeight: "100vh" }} style={{ maxWidth: "400px" }}>
+            style={{ minHeight: "100vh" }} style={{ maxwidth: "100%" }}>
             <div className="w-100">
                 <div className="chat__header">
+                <h3 style={{textAlign: "left", marginBottom:"10px"}}>{groupName}</h3> 
                     <Link className={`btn btn-${themeName} mb-2`} to="/Notes">
-                        <SpeakerNotesIcon fontSize="large"/>
+                        <SpeakerNotesIcon fontSize="medium"/>
                     </Link>         
-                    <h3 className="mr-20">{groupName}</h3> 
-                    <Link className={`btn btn-${themeName} mb-2`} to={`/room/${id}`} onClick={createMsg}>
-                        <VideoCallIcon fontSize="large" />
+                    <Link className={`btn btn-${themeName} mb-2`} to={`/room/${id}`} onClick={createMsg} target="_blank">
+                        <VideoCallIcon fontSize="medium" />
                     </Link>
+                    <Link className={`btn btn-${themeName} mb-2`} to={`/chat/feedback/:${groupId}`} target="_blank">
+                        <CreateIcon fontSize="medium" />
+                    </Link>
+                    <Link className={`btn btn-${themeName} mb-2`} to={`/chat/feedbackResults/:${groupId}`} target="_blank">
+                        <CheckCircleIcon fontSize="medium" />
+                    </Link>
+                    <Button variant={themeName} className={`btn btn-${themeName} mb-2`} onClick={handleShow}>
+                        <ListAltIcon fontSize="medium" />
+                    </Button>
+
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header>
+                        <Modal.Title>Feedback</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Enter the name of the meeting for which feedback is required
+                            <br />
+                            <label>
+                                <input 
+                                    onChange={(e) => {
+                                        setFeedbackName(e.target.value)
+                                    }} 
+                                    type="text" value={feedbackName} 
+                                    placeholder="Name of the meeting"/>
+                            </label>
+                        </Modal.Body>
+                        <Modal.Footer>
+                        <Button className={`btn btn-${themeName} mb-2`} onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button className={`btn btn-${themeName} mb-2`} onClick={handleSaveClose}>
+                            Save Changes
+                        </Button>
+                        </Modal.Footer>
+                    </Modal>
+                    
                 </div>
                 <div style={scrollDiv}>
                     {messages.map(messageInfo => (
                         <p style={messageInfo.senderId !== currentUser.uid ? chatMsg : {...chatMsg, ...chatReciever}}>
                             <span className="chat__name">{messageInfo.senderEmail}</span>
                             <div className="chat__boxmessage">
+                                {messageInfo.isVideoCallLink !== "" ? 
+                                <div> 
+                                    <Link to={messageInfo.isVideoCallLink} target="_blank">{messageInfo.message}</Link> 
+                                </div> :
                                 <span>{messageInfo.message}</span>
+                                }   
                             </div>
+                            <span className="chat__timestamp">
+                            {new Date(messageInfo.timestamp?.toDate()).toUTCString()}
+                            </span>
                         </p>                                    
                     ))}
                 </div>
                 <form style={{top: "2%"}}>
-                    <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Type a msg (refresh if changes not visible)"/>
+                    <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Type a msg (refresh if changes not visible & use 'send' button for better experience!)"/>
                     <Button variant={themeName} type="submit" onClick={sendMessage}>Send</Button>
                 </form>
             </div>

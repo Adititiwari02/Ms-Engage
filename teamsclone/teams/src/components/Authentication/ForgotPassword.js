@@ -13,7 +13,8 @@ export default function ForgotPassword() {
   const styleBtn = {
     textAlign: "center",
     position: "relative",
-    marginLeft: "19px", 
+    marginLeft: "19px",
+    marginTop: "20px", 
     marginBottom: "20px"
   }
   async function handleSubmit(e) {
