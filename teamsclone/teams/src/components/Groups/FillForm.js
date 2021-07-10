@@ -36,15 +36,12 @@ function FillForm() {
             if(doc.exists) {
                 setFormCreator(doc.data().creator)
                 setFormName(doc.data().nameOfFeedback)
+                console.log(formCreator)
             } else {
                 console.log("NOT FOUND ERROR!!")
             }
         }).catch((error) =>{
             console.log("Error Fetching Document!")
-        })
-        db.collection("groups").doc(groupId).collection("feedbackResults").doc(formId).set({
-            nameOfFeedback: formName,
-            creator: formCreator
         })
     }, [])
     function submitFeedback() {
@@ -52,6 +49,12 @@ function FillForm() {
         console.log(response2);
         console.log(response3);
         console.log(response4);
+        console.log(formName);
+        console.log(formCreator);
+        db.collection("groups").doc(groupId).collection("feedbackResults").doc(formId).set({
+            nameOfFeedback: formName,
+            creator: formCreator
+        })
         db.collection("groups").doc(groupId).collection("feedbackResults").doc(formId)
         .collection("response").doc(currentUser.uid).set({
             answer1: response1,
@@ -59,11 +62,11 @@ function FillForm() {
             answer3: response3,
             answer4: response4
         })
+        
         setResponse1("");
         setResponse2("");
         setResponse3("");
         setResponse4("");
-        window.close()
     }
     function cancelFeedback() {
         setResponse1("");
@@ -80,6 +83,7 @@ function FillForm() {
             // eslint-disable-next-line react/jsx-no-duplicate-props
             style={{ minHeight: "100vh" }} style={{ maxwidth: "100%" }}>
             <div className="w-80">
+                
                 <h2 style={{textAlign: "center", marginBottom: "30px"}}>Kindly fill the form</h2>
                 <div>
                     <h5>How do you think about the content of the meeting ?</h5>

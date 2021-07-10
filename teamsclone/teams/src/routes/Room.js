@@ -13,7 +13,7 @@ import MicOffIcon from '@material-ui/icons/MicOff';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import CallEndIcon from '@material-ui/icons/CallEnd';
-
+import "./../css/videoCall.css"
 
 const Video = (props) => {
     const ref = useRef();
@@ -30,8 +30,8 @@ const Video = (props) => {
 
 
 const videoConstraints = {
-    height: (4* window.innerHeight) / 12,
-    width: (4*window.innerWidth) / 12
+    height: window.innerHeight / 2,
+    width: window.innerWidth / 2
 };
 
 const Room = (props) => {
@@ -103,7 +103,7 @@ const Room = (props) => {
                 item.peer.signal(payload.signal)                                        //by searching for payload.id
             });
 
-            socketRef.current.on('user left', id => {
+            socketRef.current.on("user left", id => {
                 const peerObj = peersRef.current.find(p => p.peerID === id);
                 if (peerObj) {
                     peerObj.peer.destroy();
@@ -212,8 +212,8 @@ const Room = (props) => {
     return (
         <div>
             <Header />
-            <div>
-                <video style={{marginLeft: "15px", marginRight: "15px"}} muted ref={userVideo} autoPlay playsInline className="video__card"/>
+            <div className="video__row">
+                <video muted ref={userVideo} autoPlay playsInline className="video__card"/>
                 {peers.map((peer) => {
                     return (
                         <Video key={peer.peerID} peer={peer.peer} />

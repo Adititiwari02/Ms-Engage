@@ -14,6 +14,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import CreateIcon from '@material-ui/icons/Create';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Modal from 'react-bootstrap/Modal';
+import { Tooltip } from 'reactstrap';
 
 function Chat() {
     const {currentUser} = useAuth();
@@ -27,6 +28,22 @@ function Chat() {
     const [themeNum, setThemeNum] = useState(-1);
     const [show, setShow] = useState(false);
     const [feedbackName, setFeedbackName] = useState("")
+    const [tooltipOpenNotes, setTooltipOpenNotes] = useState(false);
+    const [tooltipOpenVideocall, setTooltipOpenVideocall] = useState(false);
+    const [tooltipOpenFillFeedback, setTooltipOpenFillFeedback] = useState(false);
+    const [tooltipOpenResultFeedback, setTooltipOpenResultFeedback] = useState(false);
+    const [tooltipOpenCreateFeedback, setTooltipOpenCreateFeedback] = useState(false);
+    
+    const toggleNote = () => setTooltipOpenNotes(!tooltipOpenNotes)
+
+    const toggleVideocall = () => setTooltipOpenVideocall(!tooltipOpenVideocall)
+
+    const toggleFillFeedback = () => setTooltipOpenFillFeedback(!tooltipOpenFillFeedback)
+
+    const toggleResultFeedback = () => setTooltipOpenResultFeedback(!tooltipOpenResultFeedback)
+
+    const toggleCreateFeedback = () => setTooltipOpenCreateFeedback(!tooltipOpenCreateFeedback)
+
     useEffect(() => {
         var docRef= db.collection("users").doc(currentUser.uid)
         docRef.get().then((doc) => {
@@ -151,21 +168,46 @@ function Chat() {
             <div className="w-100">
                 <div className="chat__header">
                 <h3 style={{textAlign: "left", marginBottom:"10px"}}>{groupName}</h3> 
-                    <Link className={`btn btn-${themeName} mb-2`} to="/Notes">
+                    <Link id="note" className={`btn btn-${themeName} mb-2`} to="/Notes">
                         <SpeakerNotesIcon fontSize="medium"/>
-                    </Link>         
-                    <Link className={`btn btn-${themeName} mb-2`} to={`/room/${id}`} onClick={createMsg} target="_blank">
+                    </Link> 
+                    <Tooltip placement="bottom" isOpen={tooltipOpenNotes} target="note" toggle={toggleNote}>
+                        <p>Notes Section</p>
+                        <span>This is a place to store all the notes and important points of the meeting!</span>
+                    </Tooltip>        
+                    <Link id="videoCall"className={`btn btn-${themeName} mb-2`} to={`/room/${id}`} onClick={createMsg} target="_blank">
                         <VideoCallIcon fontSize="medium" />
                     </Link>
-                    <Link className={`btn btn-${themeName} mb-2`} to={`/chat/feedback/:${groupId}`} target="_blank">
+                    <Tooltip placement="bottom" isOpen={tooltipOpenVideocall} target="videoCall" toggle={toggleVideocall}>
+                        <p>Video Call</p>
+                        <span>Click on this button to start an instant video call! The link to the video call automatically
+                            gets sent to the chat. Users can click and join the call.
+                        </span>
+                    </Tooltip>
+                    <Link id="fillFeedback" className={`btn btn-${themeName} mb-2`} to={`/chat/feedback/:${groupId}`} target="_blank">
                         <CreateIcon fontSize="medium" />
                     </Link>
-                    <Link className={`btn btn-${themeName} mb-2`} to={`/chat/feedbackResults/:${groupId}`} target="_blank">
+                    <Tooltip placement="bottom" isOpen={tooltipOpenFillFeedback} target="fillFeedback" toggle={toggleFillFeedback}>
+                        <p>Fill Feedback</p>
+                        <span>This is an area to fill all the feedback forms created for different meetings!
+                        </span>
+                    </Tooltip>
+                    <Link id="resultFeedback" className={`btn btn-${themeName} mb-2`} to={`/chat/feedbackResults/:${groupId}`} target="_blank">
                         <CheckCircleIcon fontSize="medium" />
                     </Link>
-                    <Button variant={themeName} className={`btn btn-${themeName} mb-2`} onClick={handleShow}>
+                    <Tooltip placement="bottom" isOpen={tooltipOpenResultFeedback} target="resultFeedback" toggle={toggleResultFeedback}>
+                        <p>Feedback Results</p>
+                        <span>Over here you can see all the responses to the feedback froms created by you!
+                        </span>
+                    </Tooltip>
+                    <Button id="createFeedback" variant={themeName} className={`btn btn-${themeName} mb-2`} onClick={handleShow}>
                         <ListAltIcon fontSize="medium" />
                     </Button>
+                    <Tooltip placement="bottom" isOpen={tooltipOpenCreateFeedback} target="createFeedback" toggle={toggleCreateFeedback}>
+                        <p>Create Survey Form</p>
+                        <span>Lets you create a survey form, that gets shared with users of the group and you can see the responses as well.
+                        </span>
+                    </Tooltip>
 
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header>

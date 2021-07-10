@@ -5,11 +5,32 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import {useAuth} from '../../contexts/AuthContext'
 import { v1 as uuid } from "uuid"
+import { Tooltip } from 'reactstrap';
 
 function Header() {
     const {currentUser} = useAuth();
     const id = uuid();
     const [themeName, setThemeName] = useState("");
+    const [tooltipProfile, setTooltipProfile] = useState(false);
+    const [tooltipInstantMeeting, setTooltipInstantMeeting] = useState(false);
+    const [tooltipUsers, setTooltipUsers] = useState(false);
+    const [tooltipRequests, setTooltipRequests] = useState(false);
+    const [tooltipConnections, setTooltipConnections] = useState(false);
+    const [tooltipGroups, setTooltipGroups] = useState(false);
+
+
+    const toggleProfile = () => setTooltipProfile(!tooltipProfile);
+
+    const toggleInstantMeeting = () => setTooltipInstantMeeting(!tooltipInstantMeeting);
+
+    const toggleUsers = () => setTooltipUsers(!tooltipUsers);
+
+    const toggleRequests = () => setTooltipRequests(!tooltipRequests);
+
+    const toggleConnections = () => setTooltipConnections(!tooltipConnections);
+
+    const toggleGroups = () => setTooltipGroups(!tooltipGroups);
+
     useEffect(() => {
         var docRef= db.collection("users").doc(currentUser.uid)
         docRef.get().then((doc) => {
@@ -82,12 +103,40 @@ function Header() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/dashboard">Profile</Nav.Link>
-                    <Nav.Link href={`/room/${id}`} onClick={instantMeet} target="_blank">Instant Meeting</Nav.Link>
-                    <Nav.Link href="/users">Users</Nav.Link>
-                    <Nav.Link href="/requests">Requests</Nav.Link>
-                    <Nav.Link href="/connections">Connections</Nav.Link>
-                    <Nav.Link href="/groups">Groups</Nav.Link>
+                    <Nav.Link id="notes" href="/dashboard">Profile</Nav.Link>
+                    <Tooltip placement="bottom" isOpen={tooltipProfile} target="notes" toggle={toggleProfile}>
+                        <p>Profile</p>
+                        <span>This is a place to update your passwords, sign out etc.</span>
+                    </Tooltip>  
+                    <Nav.Link id="meeting" href={`/room/${id}`} onClick={instantMeet} target="_blank">Instant Meeting</Nav.Link>
+                    <Tooltip placement="bottom" isOpen={tooltipInstantMeeting} target="meeting" toggle={toggleInstantMeeting}>
+                        <p>Instant Meeting</p>
+                        <span>Lets you have a meeting even without forming a group! However as a draw back you wont be able to
+                            save notes, chat, or create a survey/answer a survey.
+                        </span>
+                    </Tooltip>  
+                    <Nav.Link id="users" href="/users">Users</Nav.Link>
+                    <Tooltip placement="bottom" isOpen={tooltipUsers} target="users" toggle={toggleUsers}>
+                        <p>Users</p>
+                        <span>Lists all the users of the application. If the user is connected it shows a tick, else an option to
+                            send a connection request.
+                        </span>
+                    </Tooltip>  
+                    <Nav.Link id="requests" href="/requests">Requests</Nav.Link>
+                    <Tooltip placement="bottom" isOpen={tooltipRequests} target="requests" toggle={toggleRequests}>
+                        <p>Requests</p>
+                        <span>You can see all the connections requests here and accept/reject them.</span>
+                    </Tooltip>  
+                    <Nav.Link id="connections" href="/connections">Connections</Nav.Link>
+                    <Tooltip placement="bottom" isOpen={tooltipConnections} target="connections" toggle={toggleConnections}>
+                        <p>Connections</p>
+                        <span>A place to see all your connections as well as create groups!</span>
+                    </Tooltip>  
+                    <Nav.Link id="groups" href="/groups">Groups</Nav.Link>
+                    <Tooltip placement="bottom" isOpen={tooltipGroups} target="groups" toggle={toggleGroups}>
+                        <p>Groups</p>
+                        <span>Over here you can see your groups and for each group you can have video calls, store important notes & create surveys!</span>
+                    </Tooltip>  
                 </Nav>
                 <Nav className="ml-auto">
                     <NavDropdown title="Themes" id="collasible-nav-dropdown">

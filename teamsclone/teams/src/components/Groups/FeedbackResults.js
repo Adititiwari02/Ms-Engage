@@ -7,12 +7,12 @@ import {useAuth} from '../../contexts/AuthContext';
 import FeedbackResult from './FeedbackResult';
 
 function FeedbackResults() {
+    const {currentUser} = useAuth();
     const pathname = window.location.pathname;
     const groupId = pathname.split(':')[1];
-    const {currentUser} = useAuth();
     const [formsCreated, setFormsCreated] = useState([]);
     useEffect(() => {
-        db.collection("groups").doc(groupId).collection("feedbackResults").where("creator", "==", currentUser.uid)
+        db.collection("groups").doc(groupId).collection("feedbackForms").where("creator", "==", currentUser.uid)
         .onSnapshot((snapshot) =>
             setFormsCreated(snapshot.docs.map(doc => ({
                 formId: doc.id,
