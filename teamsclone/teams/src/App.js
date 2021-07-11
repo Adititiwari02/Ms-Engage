@@ -1,6 +1,5 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import CreateRoom from './routes/CreateRoom';
 import Room from './routes/Room';
 import Dashboard from "./components/Connection/Dashboard"
 import Login from "./components/Authentication/Login"
@@ -22,6 +21,7 @@ import FeedbackForms from './components/Groups/FeedbackForms';
 import FillForm from './components/Groups/FillForm';
 import FeedbackResults from './components/Groups/FeedbackResults';
 import FeedbackResponses from './components/Groups/FeedbackResponses';
+import RoomWithChat from "./routes/RoomWithChat";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         <BrowserRouter>
           <AuthProvider>  
             <Switch>
-              <Route path="/call" exact component={CreateRoom} />
+              <Route path="/call/:groupId/:roomID" exact component={RoomWithChat} />
               <Route path="/Notes" exact component={NoteCreateDelete} />
               <Route path="/room/:roomID" component={Room} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />

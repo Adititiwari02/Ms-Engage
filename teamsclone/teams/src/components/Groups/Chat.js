@@ -117,7 +117,7 @@ function Chat() {
         setInput("")
     }
     function createMsg() {
-        const meetingLink = `/room/${id}`
+        const meetingLink = `/call/:${groupId}/:${id}`
         const msg = currentUser.email + " is inviting you to a meet! Click this msg to join! "
         //e.preventDefault()
         db.collection("groups").doc(groupId).collection("messages").add({
@@ -175,7 +175,7 @@ function Chat() {
                         <p>Notes Section</p>
                         <span>This is a place to store all the notes and important points of the meeting!</span>
                     </Tooltip>        
-                    <Link id="videoCall"className={`btn btn-${themeName} mb-2`} to={`/room/${id}`} onClick={createMsg} target="_blank">
+                    <Link id="videoCall"className={`btn btn-${themeName} mb-2`} to={`/call/:${groupId}/:${id}`} onClick={createMsg} target="_blank">
                         <VideoCallIcon fontSize="medium" />
                     </Link>
                     <Tooltip placement="bottom" isOpen={tooltipOpenVideocall} target="videoCall" toggle={toggleVideocall}>
