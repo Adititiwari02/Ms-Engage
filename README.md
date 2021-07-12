@@ -30,5 +30,55 @@ Link to the project: [Ms-Engage Teams Clone](http://ms-engage-teams-clone.heroku
   <code><img src="https://img.icons8.com/color/64/000000/github.png" width="5%"/></code>
 </p>
 
+# Snapshots of the project
+<h4>Video Call feature</h4>
+<img src="/teamsclone/teams/src/Images/videoCall.jpeg" width=600 height=400>
+<br />
+<br />
+<h4>Groups and Chat</h4>
+<p float="left">
+  <img src="/teamsclone/teams/src/Images/createGroup.png" width=400 height=300 />
+  <img src="/teamsclone/teams/src/Images/chat.png" width=400 height=300/>
+</p>
+<br />
+<br />
+<h4>Numerous themes to choose from</h4>
+<p float="left">
+  <img src="/teamsclone/teams/src/Images/theme1.png" width=300 height=300 />
+  <img src="/teamsclone/teams/src/Images/theme2.png" width=300 height=300/>
+  <img src="/teamsclone/teams/src/Images/theme3.png" width=300 height=300/>
+</p>
+<br />
+<br />
+<h4>Survey forms</h4>
+<p float="left">
+  <img src="/teamsclone/teams/src/Images/feedbackCreate.png" width=300 height=300 />
+  <img src="/teamsclone/teams/src/Images/feedbackFill.png" width=300 height=300/>
+  <img src="/teamsclone/teams/src/Images/feedbackResult.png" width=300 height=300/>
+</p>
+<br />
+<br />
+<h4>Notes Section</h4>
+<img src="/teamsclone/teams/src/Images/notes.png" width=600 height=400 />
+<br />
+<br />
+<h4>Profiles, users and connections</h4>
+<p float="left">
+  <img src="/teamsclone/teams/src/Images/profile.png" width=300 height=300 />
+  <img src="/teamsclone/teams/src/Images/users.png" width=300 height=300/>
+  <img src="/teamsclone/teams/src/Images/connectionRequests.png" width=300 height=300/>
+</p>
+<br />
+<br />
+
+
+# Implementation
+1. ### Group Video Call Feature
+   In the app there are two ways one can have a video call: 
+     * Instant meeting
+     * Inside the groups<br />
+     
+   When having a call via the instant meeting, options like chat, notes and surveys is not available. This feature is for those who want to connect but dont want to create a        group or store conversations for later. For making this real time communication possible, webRTC with socket.io was used to make simple peer connections withing a mesh network. Whenever a new peer joins ze makes a simple peer connection with each of the existing peers. For the audio/video controls and the screen share feature we replace the audio/video track with the desired input. The simple-peer library was also used. 
+3. ### Database Models for group chat, surveys, connections etc
 
   
