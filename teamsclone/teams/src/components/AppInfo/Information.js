@@ -47,29 +47,29 @@ function Information() {
             <h1 style={{color: bgColor[themeNum], textAlign: "center", marginTop: "60px", marginBottom:"60px"}}>
                 Few features of the app!
             </h1>
-                <div class="container">
-                    <div class="row" style={{textAlign: "center"}}>
-                        <div class="col-sm" style={styleObj}>
+                <div className="container">
+                    <div className="row" style={{textAlign: "center"}}>
+                        <div className="col-sm" style={styleObj}>
                             <div>
                                 <h3>Group Video Call Feature</h3>
                                 <p>Fully functional video call with audio and video controlls as well as share screen option</p>
                                 <p>There is an option to have group video call without creating groups as well</p>
                             </div>
                         </div>
-                        <div class="col-sm" style={styleObj}>
+                        <div className="col-sm" style={styleObj}>
                             <div>
                                 <h3>Send and Accept Connection Requests</h3>
                                 <p>You can see all the users of the app and send/accept connection requests, later on with these connected users you can form groups</p>
                             </div>
                         </div>
-                        <div class="col-sm" style={styleObj}>
+                        <div className="col-sm" style={styleObj}>
                             <div>
                                 <h3>Create Groups and Chat</h3>
                                 <p>A group chat feature where you can have conversations before, during and after the meeting</p>
                                 <p>The video call link is also sent in the chat</p>
                             </div>
                         </div>
-                        <div class="col-sm" style={styleObj}>
+                        <div className="col-sm" style={styleObj}>
                             <div>
                                 <h3>Survey Forms and Notes</h3>
                                 <p>Create survey forms, respond to the and see the responses to them as well.</p>
@@ -82,28 +82,28 @@ function Information() {
                 <h1 style={{color: bgColor[themeNum], textAlign: "center", marginTop: "60px", marginBottom:"60px"}}>
                     So what was used to build the app?
                 </h1>
-                <div class="container" style={{marginBottom: "200px"}}>
-                    <div class="row" style={{textAlign: "center"}}>
-                        <div class="col-sm">
+                <div className="container" style={{marginBottom: "200px"}}>
+                    <div className="row" style={{textAlign: "center"}}>
+                        <div className="col-sm">
                             <img height="200px" width="200px" src={reactlogo} alt="firebase logo"/>
                         </div>
-                        <div class="col-sm">
+                        <div className="col-sm">
                             <img height="200px" width="200px" src={firebaselogo} alt="firebase logo"/>
                         </div>
-                        <div class="col-sm">
+                        <div className="col-sm">
                             <img height="200px" width="200px" src={webrtclogo} alt="firebase logo"/>   
                         </div>
                     </div>
                 </div>
-                <div class="container" style={{color: bgColor[themeNum], textAlign: "center"}}>
-                    <div class="row" style={{textAlign: "center"}}>
-                        <div class="col-sm">
+                <div className="container" style={{color: bgColor[themeNum], textAlign: "center"}}>
+                    <div className="row" style={{textAlign: "center"}}>
+                        <div className="col-sm">
                             <h4>4 Weeks</h4>
                         </div>
-                        <div class="col-sm">
+                        <div className="col-sm">
                             <h4>2500+ lines of code</h4>
                         </div>
-                        <div class="col-sm">
+                        <div className="col-sm">
                             <h4>1 adopt phase</h4>   
                         </div>
                     </div>

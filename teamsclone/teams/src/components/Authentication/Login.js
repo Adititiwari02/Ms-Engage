@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Alert } from "react-bootstrap"
+import { Form, Button, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import Footer from './../HeaderFooter/Footer';
@@ -34,6 +34,11 @@ export default function Login() {
 
   return (
     <div>
+      <Container
+      className="d-flex align-items-center justify-content-center"
+      // eslint-disable-next-line react/jsx-no-duplicate-props
+      style={{ minHeight: "100vh" }} style={{ maxWidth: "400px" }}>
+      <div className="w-100">
       <h2 className="text-center mb-4">Log In</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
@@ -58,6 +63,8 @@ export default function Login() {
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
       <Footer />
+      </div>
+      </Container>
     </div>
   )
 }

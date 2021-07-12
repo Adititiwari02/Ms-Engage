@@ -29,6 +29,7 @@ function FeedbackResults() {
             // eslint-disable-next-line react/jsx-no-duplicate-props
             style={{ minHeight: "100vh" }} style={{ maxwidth: "100%" }}>
             <div className="w-80">
+                <h2>Feedback Results!</h2>
                 {formsCreated.map(({formId, nameOfFeedback}) => (
                     <FeedbackResult 
                         id = {formId}

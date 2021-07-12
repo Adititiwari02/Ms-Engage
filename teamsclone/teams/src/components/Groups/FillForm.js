@@ -67,12 +67,14 @@ function FillForm() {
         setResponse2("");
         setResponse3("");
         setResponse4("");
+        //window.close()
     }
     function cancelFeedback() {
         setResponse1("");
         setResponse2("");
         setResponse3("");
         setResponse4("");
+        window.close()
     }
 
     return (
@@ -88,7 +90,7 @@ function FillForm() {
                 <div>
                     <h5>How do you think about the content of the meeting ?</h5>
                     <label>
-                        <input 
+                        <textarea style={{width:"100%"}} 
                             onChange={(e) => {
                                 setResponse1(e.target.value)
                             }} 
@@ -99,7 +101,7 @@ function FillForm() {
                 <div>
                     <h5>What was the most important outcome of the meeting ?</h5>
                     <label>
-                        <input 
+                        <textarea style={{width:"100%"}} 
                             onChange={(e) => {
                                 setResponse2(e.target.value)
                             }} 
@@ -110,7 +112,7 @@ function FillForm() {
                 <div>
                     <h5>What would you look forward to discussing in the next meet ?</h5>
                     <label>
-                        <input 
+                        <textarea style={{width:"100%"}} 
                             onChange={(e) => {
                                 setResponse3(e.target.value)
                             }} 
@@ -121,7 +123,7 @@ function FillForm() {
                 <div>
                     <h5>Any questions or suggestions?</h5>
                     <label>
-                        <input 
+                        <textarea style={{width:"100%"}} 
                             onChange={(e) => {
                                 setResponse4(e.target.value)
                             }} 
