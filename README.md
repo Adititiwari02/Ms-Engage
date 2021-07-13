@@ -82,3 +82,16 @@ Since all the messages are getting stored in the database conversations that hap
 2. **Perseverance and debugging skills**: Having faced numerous bugs that seemed *impossible* to solve at first to actually overcoming them felt like victory. It improved my problem solving skills and faith in hardwork.
 3. **New Technologies**: The project was a fun introduction to webRTC, sockets and databases for me and I thoroughly enjoyed learning the new technologies. With the help of my friends and mentors as well as self study I was able to grow my knowledge.
 4. **Growth mindset**: The sessions as well as the project taught me that our skills can be improved and having a growth mindset helps one and their organization in the long run.
+
+# Run on your local machine
+1. Clone the repository
+2. cd into the teamsclone folder
+3. Run the following command in the terminal: 
+     * **yarn**
+     * **nodemon server.js**<br />
+5. cd into the teams folder
+6. Run the following comman in a new terminal tab:  
+     * **yarn**
+     * **yarn start**<br />
+  
+note: you will need to setup your firebase api keys
